@@ -3,7 +3,7 @@ import os  # Permite executar comandos no sistema operacional (como limpar o ter
 import time  # Permite usar funções relacionadas a tempo, como `sleep()`
 
 # Conectar ao banco de dados (cria o arquivo "studenty.db" se ele não existir)
-conn = sqlite3.connect("studenty.db")
+conn = sqlite3.connect("backend\studenty.db")
 cursor = conn.cursor()  # Cria um cursor para executar comandos SQL
 
 # Criar a tabela se ela ainda não existir
