@@ -3,7 +3,7 @@ import os  # Permite executar comandos no sistema operacional (como limpar o ter
 import time  # Permite usar funções relacionadas a tempo, como `sleep()`
 
 # Conectar ao banco de dados (cria o arquivo "studenty.db" se ele não existir)
-conn = sqlite3.connect("backend\studenty.db")
+conn = sqlite3.connect("studenty.db")
 cursor = conn.cursor()  # Cria um cursor para executar comandos SQL
 
 # Criar a tabela se ela ainda não existir
@@ -13,18 +13,22 @@ def create_table():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             semester INTEGER NOT NULL,
-            email TEXT NOT NULL UNIQUE,
+            email VARCHAR(255) NOT NULL UNIQUE,
             registration INTEGER NOT NULL UNIQUE,
-            password TEXT NOT NULL
+            password VARCHAR(255) NOT NULL
         )
     """)
     conn.commit()  # Salva as mudanças no banco de dados
+
+create_table()
+
 
 # Função para verificar e validar o nome do usuário
 def verify_name():
     global name
     while True:
         name = input("Enter the name of the studenty: ")  # Solicita o nome do usuário
+        name = name.upper()
         if not name:  # Verifica se está vazio
             print("Name cannot be empty.")
             continue
@@ -64,6 +68,7 @@ def verify_email():
     global email
     while True:
         email = input(f"Enter {name}'s email: ")
+        email = email
         if not email:  # Verifica se o email está vazio
             print("The email cannot be empty.")
             continue
