@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>loginUJ</title>
-    <script defer src="main.js"></script>
-    <link rel="stylesheet" href="main.css"/>
+    <link rel="stylesheet" href="/static\main.css">
+    <script src="/static\main.js"></script>
 </head>
 <body>
     <div id="banana">
         <h2>Login</h2>
-        <form id="login-form">
-            <input type="text" id="email" placeholder="insert your email">
-            <input type= "password" id="password" placeholder="insert your password">
+        <form id="login-form" method="post">
+            <input type="text" id="email" name="email" placeholder="insert your email">
+            <input type= "password" id="password" name="password" placeholder="insert your password">
             <button type="submit">login</button>
         </form> 
     </div>

@@ -12,15 +12,19 @@ def creat_db():
     cursor = conn.cursor()
     cursor.execute("""
                    CREATE TABLE IF NOT EXISTS studenty(
-                        id UNIQUE NOT NULL AUTOINCREMENT INTEGER PRIMARY KEY,
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
                         name TEXT NOT NULL,
+                        semester INTEGER NOT NULL,
                         email TEXT NOT NULL UNIQUE,
                         registration INTEGER NOT NULL UNIQUE,
-                        semester INTEGER NOT NULL
+                        password TEXT NOT NULL
                    )
                    """)
     conn.commit()
     conn.close()
+
+creat_db()
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -38,8 +42,14 @@ def login():
     conn.close()
 
     if user:
+        print(f"Email recebido: '{email}'")
+        print(f"Senha recebida: '{password}'")
+
         return "Sucefful login"
     else:
+        print(f"Email recebido: '{email}'")
+        print(f"Senha recebida: '{password}'")
+
         return "wrong email or password"
     
 if __name__ == '__main__':

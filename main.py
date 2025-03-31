@@ -13,9 +13,9 @@ def create_table():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             semester INTEGER NOT NULL,
-            email VARCHAR(255) NOT NULL UNIQUE,
+            email TEXT NOT NULL UNIQUE,
             registration INTEGER NOT NULL UNIQUE,
-            password VARCHAR(255) NOT NULL
+            password TEXT NOT NULL
         )
     """)
     conn.commit()  # Salva as mudanças no banco de dados
