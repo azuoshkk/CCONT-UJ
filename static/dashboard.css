@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    font-family: Figtree;
+}
+
+body{
+    background-color: #010101;
+}
+
+#Registro{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 25%;
+}
+
+a{
+    padding: 5px;
+    background-color: blue;
+    color: aliceblue;
+    border-radius: 10px;
+    text-decoration: none;
+    margin-top: 15px;
+    width: 50px;
+    text-align: center;
+}
+a:hover{
+    background-color: rgb(77, 77, 255);
+    transform: scale(1.1);
+}
+h2{
+   color: #ff4f4f; 
+}
+p{
+    color: aliceblue;
+    align-items: block;
+    /* width: 12rem; */
+}
+strong{
+    color: #44a8ff;
+}

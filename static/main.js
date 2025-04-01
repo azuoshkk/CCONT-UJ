@@ -8,8 +8,14 @@ document.addEventListener("DOMContentLoaded", function() {
             method: "POST",
             body: formData
         })
-        .then(response => response.text())
-        .then(data => alert(data))  // Exibe a resposta do Flask
-        .catch(error => console.error("Error:", error));
+        .then(response => response.json())  // Converte a resposta para JSON
+        .then(data => {
+            if (data.redirect) {
+                window.location.href = data.redirect;  // Redireciona corretamente
+            } else if (data.error) {
+                alert(data.error);  // Exibe erro
+            }
+        })
+        .catch(error => console.error("Erro:", error));
     });
 });
