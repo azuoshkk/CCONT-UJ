@@ -1,0 +1,135 @@
+ Explicação do Código - Sistema de Login com Flask  
+
+ 🚀 O que esse código faz?  
+✅ Cria um sistema de login com Flask e SQLite.  
+✅ Permite que um usuário faça login, acesse uma área restrita (`/dashboard`) e saia (`/logout`).  
+✅ Usa um banco de dados (`studenty.db`) para armazenar os usuários.  
+
+---
+
+ 📌 1. Importação das Bibliotecas  
+
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
+import sqlite3
+
+🔹 Flask → Framework para criar a aplicação web.  
+🔹 SQLite → Banco de dados para armazenar usuários.  
+
+---
+
+ 🏗 2. Criando a Aplicação  
+
+app = Flask(__name__)  
+app.secret_key = 'salamemingue'   Protege a sessão do usuário
+
+🔹 Define a aplicação Flask e uma chave secreta para segurança.  
+
+---
+
+ 💾 3. Criando e Conectando ao Banco de Dados  
+
+def connect_db():
+    return sqlite3.connect("studenty.db")
+
+def create_db():
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS studenty(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            semester INTEGER NOT NULL,
+            email TEXT NOT NULL UNIQUE,
+            registration INTEGER NOT NULL UNIQUE,
+            password TEXT NOT NULL
+        )
+    """)
+    conn.commit()
+    conn.close()
+
+create_db()
+
+🔹 `connect_db()` → Conecta ao banco de dados.  
+🔹 `create_db()` → Cria a tabela `studenty` se ela não existir.  
+
+---
+
+ 🌐 4. Rotas da Aplicação  
+
+ 🔹 Rota Principal (`/`)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+🔹 Exibe a página inicial (`index.html`).  
+
+---
+
+ 🔹 Rota de Login (`/login`)
+
+@app.route('/login', methods=['POST'])
+def login():
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM studenty WHERE email = ? AND password = ?", (email, password))
+    user = cursor.fetchone()
+    conn.close()
+
+    if user:
+        session['user'] = {
+            'id': user[0], 'name': user[1], 'semester': user[2],
+            'email': user[3], 'registration': user[4]
+        }
+        return jsonify({'redirect': url_for('dashboard')})  
+    else:
+        return jsonify({'error': 'Wrong email or password'}), 401
+
+🔹 Verifica o e-mail e senha no banco.  
+🔹 Se correto, guarda os dados do usuário na sessão.  
+🔹 Se errado, retorna erro.  
+
+---
+
+ 🔹 Rota da Dashboard (`/dashboard`)
+
+@app.route('/dashboard')
+def dashboard():
+    user = session.get('user')
+    if not user:
+        return redirect(url_for('index'))  
+    return render_template('dashboard.html', user)
+
+🔹 Apenas usuários logados podem acessar.  
+🔹 Se não estiver logado, redireciona para a página inicial.  
+
+---
+
+ 🔹 Rota de Logout (`/logout`)
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)  
+    return redirect(url_for('index'))
+
+🔹 Remove o usuário da sessão e redireciona para a página inicial.  
+
+---
+
+🏁 5. Executando o Servidor  
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+🔹 Inicia o servidor Flask quando o código for executado.  
+
+---
+
+📢 Resumo Final 
+✔ Cria um banco de dados para armazenar alunos.  
+✔ Permite login com e-mail e senha.  
+✔ Exibe uma área restrita para usuários logados.  
+✔ Permite sair da conta.
