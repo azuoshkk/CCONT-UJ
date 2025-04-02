@@ -1,10 +1,14 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import sqlite3
+from cadastro import cadastro_bp
+
 #inicializa a aplicação Flask //  Start the Flask aplication
 app = Flask(__name__)# Instancia da framework para saber o modulo atual // Framework instance to know the current module
 # Define a chave secreta do app(usada para assinar cookies e proteger seções) // Sets the app's secret key(used to sign cookies and secure sessions)
 app.secret_key = 'salamemingue' # Em produção, use uma váriavel de ambiente para proteger essa chave // In producion, use an environment variable to secure this key
 
+# Registramos as rotas de `cadastro.py` dentro do `app.py` 
+app.register_blueprint(cadastro_bp)
 
 # Função para conectar ao banco de dados(db) // Functiopn to connect to the database(db)
 def connect_db():
