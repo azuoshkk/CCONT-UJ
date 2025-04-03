@@ -4,19 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>loginUJ</title>
-    <link rel="stylesheet" href="/static/main.css">
-    <script src="/static\main.js"></script>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script src="/static/js/main.js"></script>
 </head>
 <body>
-    <div id="banana">
+    <div class="login">
         <h2>Login</h2>
-        <form id="login-form" method="post">
-            <input type="text" id="email" name="email" placeholder="insert your email">
-            <input type= "password" id="password" name="password" placeholder="insert your password">
-            <button type="submit">login</button>
-            <a href="/register">Cadastre-se</a>
-
-        </form> 
+        <div class="forms">
+            <form id="login-form" method="post" action="/login">
+                <div class="inputs">
+                    <input type="text" id="email" name="email" placeholder="insert your email">
+                    <input type= "password" id="password" name="password" placeholder="insert your password">
+                </div>
+                <div class="buttons">
+                    <button type="submit">login</button>
+                    <button id="registerBtn" type="button" onclick="redirectToRegister()">Cadastre-se</button>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 </html>

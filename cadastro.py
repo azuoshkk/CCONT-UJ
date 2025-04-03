@@ -41,7 +41,7 @@ def registration():
         conn = connect_db()
         cursor = conn.cursor()
         cursor.execute("INSERT INTO studenty (name, email, registration, semester, password) VALUES (?, ?, ?, ?, ?)",
-                       (name, email, registration, semester, password))
+                       (name.upper(), email, registration, semester, password))
         conn.commit()
         conn.close()
         return redirect(url_for('cadastro.register_page'))  # Redireciona para a página de cadastro

@@ -19,3 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .catch(error => console.error("Erro:", error));
     });
 });
+
+function redirectToRegister() {
+    window.location.href = "register.html";
+}

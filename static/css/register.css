@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+
+
+*{
+    padding: 0;
+    margin: 0;
+    font-family: Figtree
+}
+
+body{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-color: #050513;
+}
+
+.cadastro{
+    margin-top: 25vh;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    /* background-color: #ff4d4d; */
+    border-radius: 25px;
+    gap: 25px;
+    border: 3px solid #ff4f4f;
+}
+.inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+form{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+::placeholder{
+    text-align: center;
+}
+
+input{
+    border: 1px solid #ff4f4f;
+    border-radius: 25px;
+    height: 2.5vh;
+    width: 15vw;
+    /* background: none; */
+}
+
+h2{
+    color: #ff4d4d;
+}
+
+#name{
+    background-image: url(/static/img/user\ \(1\)\ \(1\).png);
+    background-repeat: no-repeat;
+    background-position: 1em;
+    background-size: 1.3em;
+}
+#email{
+    background-image: url(/static/img/mail\ \(1\).png);
+    background-repeat: no-repeat;
+    background-position: 1em;
+    background-size: 1.3em;
+}
+#matricula{
+    background-image: url(/static/img/registration\ \(1\).png);
+    background-repeat: no-repeat;
+    background-position: 1em;
+    background-size: 1.3em;
+}
+#semester{
+    background-image: url(/static/img/semester\ \(1\).png);
+    background-repeat: no-repeat;
+    background-position: 1em;
+    background-size: 1.3em;
+}
+#password{
+    background-image: url(/static/img/locked-computer\ \(1\).png);
+    background-repeat: no-repeat;
+    background-position: 1em;
+    background-size: 1.3em;
+}
+
+button{
+    height: 3vh;
+    width: 5vw;
+    background: none;
+    border: 2px solid #ff4f4f;
+    border-radius: 10px;
+    color: #ff4f4f;
+}
+
+button:hover{
+    border: 2px solid #ff4f4f;
+    background-color: #ff4d4d;
+    transform: scale(1.);
+    color: #ffff;
+}

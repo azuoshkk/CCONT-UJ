@@ -4,27 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="/static/css/register.css">
 </head>
 <body>
-    <h2>Cadastro</h2>
-    <form action="/register" method="POST">
-        <label>Nome:</label>
-        <input type="text" name="name" required>
-
-        <label>Email:</label>
-        <input type="email" name="email" required>
-
-        <label>Matrícula:</label>
-        <input type="text" name="registration" required>
-
-        <label>Semestre:</label>
-        <input type="number" name="semester" required>
-
-        <label>Senha:</label>
-        <input type="password" name="password" required>
-
-        <button type="submit">Cadastrar</button>
-    </form>
+    <div class="cadastro">
+        <h2>Cadastro</h2>
+        <div class="forms">            
+            <form action="/register" method="POST">
+                <div class="inputs">
+                    <div class="name">
+                        <input id="name" type="text" name="name" placeholder="Insira seu nome" required >
+                    </div> 
+                    
+                    <div class="email">
+                        <input id="email" type="email" name="email" placeholder="Insira seu E-mail" required>
+                    </div>
+                    
+                    <div class="matricula">
+                        <input id="matricula" type="text" name="registration" placeholder="Insira sua matricula" required>
+                    </div>
+                    
+                    <div class="semester">
+                        <input id="semester" type="number" name="semester" placeholder="Insira seu semestre" required>
+                    </div>
+                
+                    <div class="password">
+                        <input id="password" type="password" name="password" placeholder="Insira sua senha" required>
+                    </div>
+                </div>
+                <div class="button">
+                    <button type="submit">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

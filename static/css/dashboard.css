@@ -14,7 +14,7 @@ body{
     align-items: center;
     display: flex;
     flex-direction: column;
-    margin-top: 25%;
+    margin-top: 25vh;
 }
 
 a{
@@ -28,7 +28,7 @@ a{
     text-align: center;
 }
 a:hover{
-    background-color: rgb(77, 77, 255);
+    background-color: #4d4dff;
     transform: scale(1.1);
 }
 h2{
