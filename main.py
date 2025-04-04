@@ -166,7 +166,7 @@ def studenty_delete():
                 print("The studenty name cannot have numberss")
                 continue
             break
-        cursor.execute("DELETE FROM studenty WHERE name = ?",(studentyName,)) # Deleta o studenty com base no nome fornecido anteriormente.
+        cursor.execute("DELETE FROM studenty WHERE name = ?",(studentyName.upper(),)) # Deleta o studenty com base no nome fornecido anteriormente.
         conn.commit()
         print('studenty {} has been deleted.'.format(studentyName))
         time.sleep(2.5)

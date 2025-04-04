@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, session, jsonify
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify, g
 import sqlite3
 from cadastro import cadastro_bp
+from werkzeug.security import generate_password_hash, check_password_hash
 
 #inicializa a aplicação Flask //  Start the Flask aplication
 app = Flask(__name__)# Instancia da framework para saber o modulo atual // Framework instance to know the current module
@@ -15,23 +16,6 @@ def connect_db():
     conn = sqlite3.connect("studenty.db")
     return conn
 # Função para criar um db caso n exista // Function to creat an db if not exists
-def creat_db():
-    conn = connect_db()
-    cursor = conn.cursor()
-    cursor.execute("""
-                   CREATE TABLE IF NOT EXISTS studenty(
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        name TEXT NOT NULL,
-                        semester INTEGER NOT NULL,
-                        email TEXT NOT NULL UNIQUE,
-                        registration INTEGER NOT NULL UNIQUE,
-                        password TEXT NOT NULL
-                   )
-                   """)
-    conn.commit()
-    conn.close()
-
-creat_db()
 
 # Define rota principal do app // Define the main route of the app 
 # Quando o usuario acessar a rota base ('/'), a função será chamada //  When the user access the basic route ('/'), the function will be called
@@ -54,12 +38,13 @@ def login():
     conn = sqlite3.connect('studenty.db')
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM studenty where email = ? AND password = ?", (email, password)) # Procura no db uma linha que possua um email e uma senha igual ao input //  Search in the db for an line that has an email and password equal to the input
+    cursor.execute("SELECT * FROM studenty where email = ?", (email,)) # Procura no db uma linha que possua um email e uma senha igual ao input //  Search in the db for an line that has an email and password equal to the input
     user = cursor.fetchone() # Função usando cursor para obter a linha que foi pesquisada //  Function using the cursor to get the line that was searched
+    print(user)
 
     conn.close() # Fecha a conexão com o db // Close the db connection
 
-    if user: # Verifica se a variável user não está vazia ou é None // Verify if the user variable is not empty or is none
+    if user and check_password_hash(user[5], password): # Verifica se a variável user não está vazia ou é None // Verify if the user variable is not empty or is none
         # Armazena os dados de usuarios na sessão Flask // Stores the user data in the Flask session
         # isso permite manter o usuario autenticado durante a navegação do site // This allow the user to remain authenticated while browsing the site
         session['user'] = {
@@ -86,9 +71,12 @@ def dashboard():
         return redirect(url_for('index')) # Redireciona para a página principal // Redirect to the main page 
     return render_template('dashboard.html', **user) # Renderiza a dashboard, passando os dados de "user" // Render the dashboard, passing the "user" data
 
-@app.route('/logout') # Define a rota "logout" // Sets the "logout" route
+@app.route('/logout')
 def logout():
-    session.pop('user', None)  # Remove os dados do usuario(se existir) // Delete the user data(if exists) 
+    next_page = request.args.get('next')  # Verifica se tem um redirecionamento desejado
+    session.pop('user', None)  # Remove os dados do usuário
+    if next_page:
+        return redirect(url_for(next_page))  # Redireciona para a página desejada após logout
     return redirect(url_for('index')) # Redireciona para a pagina inicial // Redirect to the main page
 
 # Esse bloco garante que o servidor Flask só será iniciado se o script for executado diretamente // This block ensures that the serve will only turn on if the script is triggered directly 

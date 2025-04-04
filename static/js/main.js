@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("login-form").addEventListener("submit", function(event) {
+    const loginForm = document.getElementById("login-form");
+    const registerButton = document.getElementById("register-button");
+
+    // Ação do botão de login
+    loginForm.addEventListener("submit", function(event) {
         event.preventDefault(); // Evita o reload da página
 
         let formData = new FormData(this);
@@ -8,18 +12,19 @@ document.addEventListener("DOMContentLoaded", function() {
             method: "POST",
             body: formData
         })
-        .then(response => response.json())  // Converte a resposta para JSON
+        .then(response => response.json())
         .then(data => {
             if (data.redirect) {
-                window.location.href = data.redirect;  // Redireciona corretamente
+                window.location.href = data.redirect; // Redireciona para a dashboard
             } else if (data.error) {
-                alert(data.error);  // Exibe erro
+                alert(data.error); // Exibe erro
             }
         })
         .catch(error => console.error("Erro:", error));
     });
-});
 
-function redirectToRegister() {
-    window.location.href = "register.html";
-}
+    // Ação do botão de registro (vai direto para a página de cadastro)
+    registerButton.addEventListener("click", function() {
+        window.location.href = "/register";
+    });
+});

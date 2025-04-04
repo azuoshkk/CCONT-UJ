@@ -1,5 +1,6 @@
 from flask import Blueprint, request, render_template, redirect, url_for, jsonify
 import sqlite3
+from werkzeug.security import generate_password_hash
 
 #criar um blueprint para separara o cadastro do resto do código
 cadastro_bp = Blueprint('cadastro',__name__)
@@ -35,15 +36,17 @@ def registration():
     email = request.form.get('email')
     registration = request.form.get('registration')
     password = request.form.get('password')
+    hashed_password = generate_password_hash(password)
+
     if not name or not email or not registration or not semester or not password:
         return jsonify({'error': 'Todos os campos são obrigatórios'}), 400
     try:
         conn = connect_db()
         cursor = conn.cursor()
         cursor.execute("INSERT INTO studenty (name, email, registration, semester, password) VALUES (?, ?, ?, ?, ?)",
-                       (name.upper(), email, registration, semester, password))
+                       (name.upper(), email, registration, semester, hashed_password))
         conn.commit()
         conn.close()
-        return redirect(url_for('cadastro.register_page'))  # Redireciona para a página de cadastro
+        return redirect(url_for('index.html'))  # Redireciona para a página de cadastro
     except sqlite3.IntegrityError:
         return jsonify({'error': 'Email ou matrícula já cadastrados!'}), 409

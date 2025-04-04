@@ -91,3 +91,17 @@ a:hover{
     gap: 10px;
     margin-top: 1vh;
 }
+
+#email{
+    background-image: url(/static/img/mail\ \(1\).png);
+    background-repeat: no-repeat;
+    background-position: 1em;
+    background-size: 1.3em;
+}
+
+#password{
+    background-image: url(/static/img/semester\ \(1\).png);
+    background-repeat: no-repeat;
+    background-position: 1em;
+    background-size: 1.3em;
+}

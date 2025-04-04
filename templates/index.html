@@ -13,12 +13,16 @@
         <div class="forms">
             <form id="login-form" method="post" action="/login">
                 <div class="inputs">
-                    <input type="text" id="email" name="email" placeholder="insert your email">
-                    <input type= "password" id="password" name="password" placeholder="insert your password">
+                    <div class="email">
+                        <input type="text" id="email" name="email" placeholder="insert your email">
+                    </div>
+                    <div class="password">
+                        <input type= "password" id="password" name="password" placeholder="insert your password">
+                    </div>
                 </div>
                 <div class="buttons">
-                    <button type="submit">login</button>
-                    <button id="registerBtn" type="button" onclick="redirectToRegister()">Cadastre-se</button>
+                    <button type="submit" id="login-button">Login</button>
+                    <button type="button" id="register-button">Registrar-se</button>
                 </div>
             </form>
         </div>
